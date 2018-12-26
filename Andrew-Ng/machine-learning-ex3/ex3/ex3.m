@@ -32,7 +32,7 @@ num_labels = 10;          % 10 labels, from 1 to 10
 % Load Training Data
 fprintf('Loading and Visualizing Data ...\n')
 
-load('ex3data1.mat'); % training data stored in arrays X, y
+load('ex3data1.mat'); % training data stored in arrays X = 5000 * 400 , y = 5000 * 1
 m = size(X, 1);
 
 % Randomly select 100 data points to display
