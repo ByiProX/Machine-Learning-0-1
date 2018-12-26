@@ -8,8 +8,8 @@ function [J grad] = nnCostFunction(nn_params, ...
 %   [J grad] = NNCOSTFUNCTON(nn_params, hidden_layer_size, num_labels, ...
 %   X, y, lambda) computes the cost and gradient of the neural network. The
 %   parameters for the neural network are "unrolled" into the vector
-%   nn_params and need to be converted back into the weight matrices. 
-% 
+%   nn_params and need to be converted back into the weight matrices.
+%
 %   The returned parameter grad should be a "unrolled" vector of the
 %   partial derivatives of the neural network.
 %
@@ -24,8 +24,8 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
-% You need to return the following variables correctly 
+
+% You need to return the following variables correctly
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
@@ -46,12 +46,12 @@ Theta2_grad = zeros(size(Theta2));
 %         that your implementation is correct by running checkNNGradients
 %
 %         Note: The vector y passed into the function is a vector of labels
-%               containing values from 1..K. You need to map this vector into a 
+%               containing values from 1..K. You need to map this vector into a
 %               binary vector of 1's and 0's to be used with the neural network
 %               cost function.
 %
 %         Hint: We recommend implementing backpropagation using a for-loop
-%               over the training examples if you are implementing it for the 
+%               over the training examples if you are implementing it for the
 %               first time.
 %
 % Part 3: Implement regularization with the cost function and gradients.
@@ -63,11 +63,33 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+X = [ones(m, 1) X];
+y_new = ones(m, num_labels);
+for line = 1: m
+    y_new(line, :) = 1: num_labels;
+end
+
+y_new = (y_new == y);
+size(y_new); % 5000 * 10
+
+% 每一层都要sigmoid计算
+hidden_layer = [ones(m, 1) sigmoid(X * Theta1')]; % 5000 * 26
+
+output_layer = hidden_layer * Theta2'; % 5000 * 10;
+
+h =  sigmoid(output_layer); % 5000 * 10;
+
+%% 方法 1：
+% for line=1:m
+%     J += -(y_new(line,:) * log(h(line,:))' + (1 - y_new(line,:)) * log(1 - h(line,:))');
+% end
+% J = J / m;
 
 
-
-
-
+%% 方法 2：
+y = y_new;
+j_matrix = -(y .* log(h) + (1 - y) .* log(1 - h));
+J = sum(sum(j_matrix'))/5000;
 
 
 
