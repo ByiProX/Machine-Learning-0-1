@@ -79,20 +79,28 @@ output_layer = hidden_layer * Theta2'; % 5000 * 10;
 
 h =  sigmoid(output_layer); % 5000 * 10;
 
-%% 方法 1：
+% ====================== J without regularization ======================
+%% 方法 1：without regularization
 % for line=1:m
 %     J += -(y_new(line,:) * log(h(line,:))' + (1 - y_new(line,:)) * log(1 - h(line,:))');
 % end
 % J = J / m;
 
 
-%% 方法 2：
+%% 方法 2：wiithout regularization
+% y = y_new;
+% j_matrix = -(y .* log(h) + (1 - y) .* log(1 - h));
+% J = sum(sum(j_matrix'))/5000;
+
+
+% ====================== J with regularization ======================
 y = y_new;
 j_matrix = -(y .* log(h) + (1 - y) .* log(1 - h));
-J = sum(sum(j_matrix'))/5000;
+J_1 = sum(sum(j_matrix')) / m;
 
-
-
+reg_matrix = sum(sum(Theta1(:,[2:end]) .^ 2)) + sum(sum(Theta2(:,[2:end]) .^ 2));
+J_2 = reg_matrix * lambda / (2*m);
+J = J_1 + J_2
 
 
 
