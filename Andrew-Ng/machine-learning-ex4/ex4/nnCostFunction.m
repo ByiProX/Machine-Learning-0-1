@@ -100,7 +100,7 @@ J_1 = sum(sum(j_matrix')) / m;
 
 reg_matrix = sum(sum(Theta1(:,[2:end]) .^ 2)) + sum(sum(Theta2(:,[2:end]) .^ 2));
 J_2 = reg_matrix * lambda / (2*m);
-J = J_1 + J_2
+J = J_1 + J_2;
 
 
 
