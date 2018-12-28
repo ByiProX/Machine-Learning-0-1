@@ -63,6 +63,7 @@ Theta2_grad = zeros(size(Theta2)); % 10 * 26
 %
 
 
+
 X = [ones(m, 1) X];
 
 y_new = ones(m, num_labels);
@@ -74,6 +75,7 @@ y_new = (y_new == y);
 size(y_new); % 5000 * 10
 
 % 每一层都要sigmoid计算
+z_2 = [ones(m, 1) X * Theta1'];
 hidden_layer = [ones(m, 1) sigmoid(X * Theta1')]; % 5000 * 26
 output_layer = hidden_layer * Theta2'; % 5000 * 10;
 h =  sigmoid(output_layer); % 5000 * 10;
@@ -104,7 +106,7 @@ J = J_1 + J_2;
 % ======================    backpropagation    ======================
 delta_3 = h - y_new; % 5000 * 10
 % fprintf('size of delta3 %d %d \n' , size(delta_3));
-delta_2 = delta_3 * Theta2 .* sigmoidGradient(hidden_layer); % 5000 * 26
+delta_2 = delta_3 * Theta2 .* sigmoidGradient(z_2); % 5000 * 26
 % fprintf('size of delta2 %d %d \n' , size(delta_2));
 Dt_1 = delta_2(:, 2:end)' * X; % 25 * 401
 % fprintf('size of Dt_1   %d %d \n' , size(Dt_1));
