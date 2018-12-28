@@ -118,7 +118,9 @@ Theta2_grad = Dt_2 / m;
 
 % ============   backpropagation with regularization    ===========
 
-Theta1_grad
+Theta1_grad(:, 2:end) += lambda / m * Theta1(:, 2:end);
+Theta2_grad(:, 2:end) += lambda / m * Theta2(:, 2:end); 
+
 
 
 
