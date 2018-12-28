@@ -116,6 +116,13 @@ Theta1_grad = Dt_1 / m;
 Theta2_grad = Dt_2 / m;
 
 
+% ============   backpropagation with regularization    ===========
+
+Theta1_grad
+
+
+
+
 
 
 % Dt_1 = zeros(hidden_layer_size, input_layer_size + 1); % 25 * 401
